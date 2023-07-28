@@ -4,15 +4,25 @@
 
 #include <iostream>
 
-GameEngine::Object* factory(GameEngine::json data) {
-	return nullptr;
+class UserObject : public GameEngine::Object {
+
+};
+
+GameEngine::Object* factory(const GameEngine::json& data) {
+	const std::string id = data.at("id").get<std::string>();
+	if (id == "UserClass") {
+		std::cout << "UserObject\n";
+		return new UserObject {};
+	}
+	std::cout << "DefaultObject\n";
+	return new GameEngine::Object {};
 }
 
 int main() {
 	GameEngine::GameEngineApplication app(factory);
 
 	GameEngine::json sceneJson = GameEngine::loadScene("../../test/leveldat.json");
-	std::cout << sceneJson << "\n";
+	app.initScene(sceneJson);
 
 	return 0;
 }

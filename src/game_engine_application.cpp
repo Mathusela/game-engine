@@ -5,10 +5,18 @@
 
 using namespace GameEngine;
 
-GameEngineApplication::GameEngineApplication(Object*(*object_factory)(json data)) {
+GameEngineApplication::GameEngineApplication(Object*(*object_factory)(const json& data)): object_factory(object_factory) {
 	std::cout << "Constructed\n";
 }
 
 GameEngineApplication::~GameEngineApplication() noexcept {
+	for (auto ptr : objects) delete ptr;
 	std::cout << "Destructed\n";
 }
+
+void GameEngineApplication::initScene(const json& data) {
+	for (auto objectJson : data.at("Objects")) {
+		std::cout << objectJson << "\n";
+		objects.push_back(object_factory(objectJson));
+	}
+} 
