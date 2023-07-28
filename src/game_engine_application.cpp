@@ -8,6 +8,6 @@ GameEngineApplication::GameEngineApplication() {
 	std::cout << "Constructed\n";
 }
 
-GameEngineApplication::~GameEngineApplication() {
+GameEngineApplication::~GameEngineApplication() noexcept {
 	std::cout << "Destructed\n";
 }

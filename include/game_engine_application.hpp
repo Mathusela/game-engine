@@ -6,7 +6,7 @@ namespace GameEngine {
 class GameEngineApplication {
 public:
 	GameEngineApplication();
-	~GameEngineApplication();
+	~GameEngineApplication() noexcept;
 };
 
 }	// namespace GameEngine
