@@ -6,7 +6,11 @@ enable_testing()
 
 include_directories(include)
 
-add_library(game-engine STATIC src/game_engine_application.cpp)
+add_library(game-engine STATIC 
+	src/game_engine_application.cpp 
+	src/object.cpp 
+	src/json_internal.cpp 
+)
 
 ADD_EXECUTABLE(test-exe test/test_app.cpp) 
 TARGET_LINK_LIBRARIES(test-exe game-engine)

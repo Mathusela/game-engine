@@ -1,0 +1,19 @@
+{
+	"Shaders": [
+		{
+			"id": 0,
+			"fragmentPath": "",
+			"vertexPath": ""
+		}
+	],
+
+	"Objects": [
+		{
+			"id": "UserClass",
+			"shaderId": 0,
+			"geometryPath": "",
+			"position": [0.0, 0.0, 0.0],
+			"rotation": [0.0, 0.0, 0.0]
+		}
+	]	
+}
