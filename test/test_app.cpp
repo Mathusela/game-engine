@@ -4,19 +4,25 @@
 
 #include <iostream>
 
+// USER DEFINED CLASS
 class UserObject : public GameEngine::Object {
+public:
+	static const std::string id;
+
 	void draw() {
 
 	}
+	
 	~UserObject() {
 		std::cout << "USER OBJECT DESTROYED\n";
 	}
 };
+const std::string UserObject::id = "UserClass";
 
+// USER DEFINED FACTORY FUNCTION
 GameEngine::Object* factory(const GameEngine::json& data) {
 	const std::string id = data.at("id").get<std::string>();
-	// TODO: Store ID as a static member of the class (easier serialization)
-	if (id == "UserClass") {
+	if (id == UserObject::id) {
 		std::cout << "User Object\n";
 		return new UserObject {};
 	}
@@ -24,6 +30,7 @@ GameEngine::Object* factory(const GameEngine::json& data) {
 	return nullptr;
 }
 
+// MAIN ENTRY POINT
 int main() {
 	GameEngine::GameEngineApplication app(factory);
 

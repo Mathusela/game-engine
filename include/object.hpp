@@ -15,6 +15,7 @@ protected:
 	// TODO: Rotation
 
 public:
+	static const std::string id;
 	virtual ~Object() noexcept {}
 	virtual void draw() = 0;
 };
