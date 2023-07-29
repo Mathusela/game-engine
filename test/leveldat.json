@@ -7,17 +7,27 @@
 		}
 	],
 
+	"RenderLayers": [
+		{
+			"id": 0,
+			"shaderId": 0,
+			"prevRenderLayer": null,
+			"outputType": "2D",
+			"outputLayer": true
+		}
+	],
+
 	"Objects": [
 		{
 			"id": "UserClass",
-			"shaderId": 0,
+			"renderLayerId": 0,
 			"geometryPath": "",
 			"position": [0.0, 0.0, 0.0],
 			"rotation": [0.0, 0.0, 0.0]
 		},
 		{
 			"id": "UserClass",
-			"shaderId": 0,
+			"renderLayerId": 0,
 			"geometryPath": "",
 			"position": [5.0, 0.0, 0.0],
 			"rotation": [0.0, 0.0, 0.0]

@@ -9,23 +9,26 @@ class UserObject : public GameEngine::Object {
 public:
 	static const std::string id;
 
+	UserObject() {
+		std::cout << "USER OBJECT CONSTRUCTED\n";
+	}
+
+	~UserObject() noexcept {
+		std::cout << "USER OBJECT DESTROYED\n";
+	}
+
 	void draw() {
 
 	}
 	
-	~UserObject() {
-		std::cout << "USER OBJECT DESTROYED\n";
-	}
 };
 const std::string UserObject::id = "UserClass";
 
 // USER DEFINED FACTORY FUNCTION
 GameEngine::Object* factory(const GameEngine::json& data) {
 	const std::string id = data.at("id").get<std::string>();
-	if (id == UserObject::id) {
-		std::cout << "User Object\n";
+	if (id == UserObject::id)
 		return new UserObject {};
-	}
 	std::cout << "Invalid Object\n";
 	return nullptr;
 }
