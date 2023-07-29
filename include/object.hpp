@@ -8,6 +8,10 @@
 namespace GameEngine {
 
 class Object {
+protected:
+
+public:
+	virtual void draw() = 0;
 };
 
 }	// namespace GameEngine

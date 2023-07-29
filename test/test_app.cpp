@@ -5,17 +5,19 @@
 #include <iostream>
 
 class UserObject : public GameEngine::Object {
-
+	void draw() {
+		
+	}
 };
 
 GameEngine::Object* factory(const GameEngine::json& data) {
 	const std::string id = data.at("id").get<std::string>();
 	if (id == "UserClass") {
-		std::cout << "UserObject\n";
+		std::cout << "User Object\n";
 		return new UserObject {};
 	}
-	std::cout << "DefaultObject\n";
-	return new GameEngine::Object {};
+	std::cout << "Invalid Object\n";
+	return nullptr;
 }
 
 int main() {

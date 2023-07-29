@@ -10,6 +10,7 @@ namespace GameEngine {
 
 class GameEngineApplication {
 private:
+	// TODO: Default object_factory
 	Object*(*object_factory)(const json& data);
 	// TODO: Shaders
 	std::vector<Object*> objects;
