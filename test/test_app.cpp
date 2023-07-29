@@ -27,8 +27,10 @@ const std::string UserObject::id = "UserClass";
 // USER DEFINED FACTORY FUNCTION
 GameEngine::Object* factory(const GameEngine::json& data) {
 	const std::string id = data.at("id").get<std::string>();
+
 	if (id == UserObject::id)
 		return new UserObject {};
+
 	std::cout << "Invalid Object\n";
 	return nullptr;
 }

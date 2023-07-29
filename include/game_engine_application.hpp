@@ -2,6 +2,7 @@
 #define GAME_ENGINE_APPLICATION_HPP
 
 #include "object.hpp"
+#include "render_layer.hpp"
 #include "json.hpp"
 
 #include <vector>
@@ -15,7 +16,7 @@ private:
 	Object*(*object_factory)(const json& data);
 	// TODO: Shaders
 	std::vector<Object*> objects;
-	// TODO: Render layers
+	std::vector<RenderLayer*> renderLayers;
 	// TODO: Physics handler
 
 	std::vector<std::thread*> executionThreads {};

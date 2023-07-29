@@ -11,9 +11,9 @@
 		{
 			"id": 0,
 			"shaderId": 0,
-			"prevRenderLayer": null,
+			"cameraId": 0,
 			"outputType": "2D",
-			"outputLayer": true
+			"layerOrder": 0
 		}
 	],
 

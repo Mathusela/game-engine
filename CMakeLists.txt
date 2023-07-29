@@ -13,6 +13,7 @@ add_library(game-engine STATIC
 	src/game_engine_application.cpp 
 	src/object.cpp 
 	src/json.cpp
+	src/render_layer.cpp
 	src/extern/glad.c
 )
 
