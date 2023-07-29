@@ -6,7 +6,10 @@
 
 class UserObject : public GameEngine::Object {
 	void draw() {
-		
+
+	}
+	~UserObject() {
+		std::cout << "USER OBJECT DESTROYED\n";
 	}
 };
 

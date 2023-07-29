@@ -6,12 +6,12 @@
 using namespace GameEngine;
 
 GameEngineApplication::GameEngineApplication(Object*(*object_factory)(const json& data)): object_factory(object_factory) {
-	std::cout << "Constructed\n";
+	std::cout << "APPLICATION CONSTRUCTED\n";
 }
 
 GameEngineApplication::~GameEngineApplication() noexcept {
 	for (auto ptr : objects) delete ptr;
-	std::cout << "Destructed\n";
+	std::cout << "APPLICATION DESTROYED\n";
 }
 
 void GameEngineApplication::initScene(const json& data) {
