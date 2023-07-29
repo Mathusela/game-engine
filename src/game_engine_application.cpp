@@ -9,6 +9,8 @@
 using namespace GameEngine;
 
 GameEngineApplication::GameEngineApplication(Object*(*object_factory)(const json& data)): object_factory(object_factory) {
+	glfwInit();
+
 	std::cout << "APPLICATION CONSTRUCTED\n";
 }
 
@@ -26,37 +28,36 @@ void GameEngineApplication::initScene(const json& data) {
 } 
 
 void renderStep() {
-
+	glClear(GL_COLOR_BUFFER_BIT);
 }
 
 void physicsStep() {
 
 }
 
-void loopThreadFunction() {
-	glfwInit();
-
+void loopThreadFunction(int width, int height, std::string title) {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    GLFWwindow* window = glfwCreateWindow(500, 500, "OpenGL", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
 
     glfwMakeContextCurrent(window);
 
     gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 	
+	glClearColor(0.0, 0.0, 1.0, 1.0);
 	while(!glfwWindowShouldClose(window)) {
-        physicsStep();	// Make its own thread
-		renderStep();
+        physicsStep();	// TODO: Make its own thread
+		renderStep();	// TODO: Pass delta time
 		
-		// glfwSwapBuffers(window);
+		glfwSwapBuffers(window);
         glfwPollEvents();
     }
 }
 
-void GameEngineApplication::run() {
-	executionThreads.push_back(new std::thread(loopThreadFunction));
+void GameEngineApplication::run(int width, int height, std::string title) {
+	executionThreads.push_back(new std::thread(loopThreadFunction, width, height, title));
 }
 
 void GameEngineApplication::join() {

@@ -25,7 +25,7 @@ public:
 	~GameEngineApplication() noexcept;
 
 	void initScene(const json& data);
-	void run();
+	void run(int width, int height, std::string title);
 	void join();
 };
 

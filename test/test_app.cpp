@@ -39,7 +39,7 @@ int main() {
 
 	GameEngine::json sceneJson = GameEngine::loadScene("../../test/leveldat.json");
 	app.initScene(sceneJson);
-	app.run();
+	app.run(500, 500, "Game Engine");
 
 	std::cout << "Do more stuff\n";
 
