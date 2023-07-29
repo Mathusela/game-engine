@@ -4,9 +4,6 @@
 
 #include <iostream>
 
-#include <extern/glad/glad.h>
-#include <extern/GLFW/glfw3.h>
-
 // USER DEFINED CLASS
 class UserObject : public GameEngine::Object {
 public:
@@ -42,23 +39,9 @@ int main() {
 
 	GameEngine::json sceneJson = GameEngine::loadScene("../../test/leveldat.json");
 	app.initScene(sceneJson);
+	app.run();
 
-	glfwInit();
-
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-    GLFWwindow* window = glfwCreateWindow(500, 500, "OpenGL", NULL, NULL);
-
-    glfwMakeContextCurrent(window);
-
-    gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-
-	while(!glfwWindowShouldClose(window)) {
-        // glfwSwapBuffers(window);
-        glfwPollEvents();
-    }
+	std::cout << "Do more stuff\n";
 
 	return 0;
 }

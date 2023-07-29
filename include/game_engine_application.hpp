@@ -5,6 +5,7 @@
 #include "json.hpp"
 
 #include <vector>
+#include <thread>
 
 namespace GameEngine {
 
@@ -17,11 +18,15 @@ private:
 	// TODO: Render layers
 	// TODO: Physics handler
 
+	std::vector<std::thread*> executionThreads {};
+
 public:
 	GameEngineApplication(Object*(*object_factory)(const json& data));
 	~GameEngineApplication() noexcept;
 
 	void initScene(const json& data);
+	void run();
+	void join();
 };
 
 }	// namespace GameEngine
