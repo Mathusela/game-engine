@@ -2,7 +2,7 @@
 #define GAME_ENGINE_APPLICATION_HPP
 
 #include "object.hpp"
-#include "json_internal.hpp"
+#include "json.hpp"
 
 #include <vector>
 

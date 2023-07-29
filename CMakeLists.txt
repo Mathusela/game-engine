@@ -9,7 +9,7 @@ include_directories(include)
 add_library(game-engine STATIC 
 	src/game_engine_application.cpp 
 	src/object.cpp 
-	src/json_internal.cpp 
+	src/json.cpp 
 )
 
 ADD_EXECUTABLE(test-exe test/test_app.cpp) 
