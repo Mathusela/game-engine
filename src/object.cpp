@@ -7,7 +7,7 @@ using namespace GameEngine;
 const std::string GameEngine::Object::id = "Object";
 
 void Object::updateWorldMatrix() {
-	worldMatrix = rotationMatrix * positionMatrix;
+	worldMatrix = positionMatrix * rotationMatrix;
 }
 
 void Object::setPosition(const glm::vec3& pos) {

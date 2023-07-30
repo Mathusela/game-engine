@@ -49,8 +49,8 @@ public:
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 	}
 
-	void tick() {
-		auto newRot = getRotation() + glm::vec3(0.2, 0.2, 0.0);
+	void tick(float deltaTime) {
+		auto newRot = getRotation() + deltaTime*glm::vec3(20.0, 20.0, 0.0);
 		setRotation(newRot);
 	}
 };
@@ -88,3 +88,4 @@ int main() {
 // TODO: Add Framebuffers to RenderLayers and pass output Textures between RenderLayers
 // TODO: Add geometry import for objects
 // TODO: Add serialization of levels (ability to save a level to JSON and read it back into the Engine)
+// TODO: Put physics on its own thread

@@ -2,6 +2,7 @@
 #include "extern/json.hpp"
 
 #include <iostream>
+#include <ctime>
 
 #include <extern/glad/glad.h>
 #include <extern/GLFW/glfw3.h>
@@ -68,10 +69,18 @@ void physicsStep() {
 
 void GameEngineApplication::run() {
 	glClearColor(0.0, 0.0, 1.0, 1.0);
+	
+	float deltaTime = 0.0;
+	float prevFrame = 0.0;
+
 	while(!glfwWindowShouldClose(window)) {
-		for (auto object : objects) object->tick();
+		float currentFrame = glfwGetTime();
+		deltaTime = currentFrame - prevFrame;
+		prevFrame = currentFrame;
+		
+		for (auto object : objects) object->tick(deltaTime);
         physicsStep();	// TODO: Make its own thread
-		renderStep(renderLayers);	// TODO: Pass delta time
+		renderStep(renderLayers);
 		
 		glfwSwapBuffers(window);
         glfwPollEvents();
