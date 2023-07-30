@@ -69,6 +69,7 @@ void physicsStep() {
 void GameEngineApplication::run() {
 	glClearColor(0.0, 0.0, 1.0, 1.0);
 	while(!glfwWindowShouldClose(window)) {
+		for (auto object : objects) object->tick();
         physicsStep();	// TODO: Make its own thread
 		renderStep(renderLayers);	// TODO: Pass delta time
 		

@@ -41,7 +41,10 @@ public:
 	void draw(GameEngine::Shader* shader) {
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 	}
-	
+
+	void tick() {
+
+	}
 };
 const std::string UserObject::id = "UserClass";
 
@@ -67,9 +70,6 @@ int main() {
 	return 0;
 }
 
-// TODO: Error on shader compilation error
-
-// TODO: Test draw once shaders are implemented
 // TODO: Add Camera
 // TODO: Add Textures
 // TODO: Add Framebuffers to RenderLayers and pass output Textures between RenderLayers

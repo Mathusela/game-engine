@@ -22,6 +22,7 @@ public:
 	static const std::string id;
 	virtual ~Object() noexcept {}
 	virtual void draw(Shader* shader) = 0;
+	virtual void tick() = 0;
 };
 
 }	// namespace GameEngine
