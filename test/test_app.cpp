@@ -10,7 +10,10 @@ class UserObject : public GameEngine::Object {
 public:
 	static const std::string id;
 
-	UserObject() {
+	UserObject(glm::vec3 position, glm::vec3 rotation) {
+		setPosition(position);
+		setRotation(rotation);
+
 		float verts[] = {
 			-0.5, -0.5, 0.0,
 			-0.5, 0.5, 0.0,
@@ -51,9 +54,13 @@ const std::string UserObject::id = "UserClass";
 // USER DEFINED FACTORY FUNCTION
 GameEngine::Object* factory(const GameEngine::json& data) {
 	const std::string id = data.at("id").get<std::string>();
+	auto positionArray = data.at("position").get<std::array<float, 3>>();
+	auto position = glm::vec3(positionArray[0], positionArray[1], positionArray[2]);
+	auto rotationArray = data.at("rotation").get<std::array<float, 3>>();
+	auto rotation = glm::vec3(rotationArray[0], rotationArray[1], rotationArray[2]);
 
 	if (id == UserObject::id)
-		return new UserObject {};
+		return new UserObject {position, rotation};
 
 	std::cout << "Invalid Object\n";
 	return nullptr;
@@ -70,6 +77,7 @@ int main() {
 	return 0;
 }
 
+// TODO: Add set union method to Shader
 // TODO: Add Camera
 // TODO: Add Textures
 // TODO: Add Framebuffers to RenderLayers and pass output Textures between RenderLayers
