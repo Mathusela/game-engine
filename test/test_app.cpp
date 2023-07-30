@@ -5,6 +5,8 @@
 
 #include <iostream>
 
+#include <extern/glm/gtx/string_cast.hpp>
+
 // USER DEFINED CLASS
 class UserObject : public GameEngine::Object {
 public:
@@ -42,11 +44,14 @@ public:
 	}
 
 	void draw(GameEngine::Shader* shader) {
+		shader->setUniform("world", getWorldMatrix());
+
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 	}
 
 	void tick() {
-
+		auto newRot = getRotation() + glm::vec3(0.2, 0.2, 0.0);
+		setRotation(newRot);
 	}
 };
 const std::string UserObject::id = "UserClass";
@@ -77,7 +82,7 @@ int main() {
 	return 0;
 }
 
-// TODO: Add set union method to Shader
+// TODO: Add delta time
 // TODO: Add Camera
 // TODO: Add Textures
 // TODO: Add Framebuffers to RenderLayers and pass output Textures between RenderLayers

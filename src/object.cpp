@@ -23,10 +23,11 @@ glm::vec3 Object::getPosition() {
 void Object::setRotation(const glm::vec3& rot) {
 	rotation = rot;
 	auto mat = glm::identity<glm::mat4>();
-	glm::rotate(mat, glm::radians(rotation.x), glm::vec3(1.0, 0.0, 0.0));
-	glm::rotate(mat, glm::radians(rotation.y), glm::vec3(0.0, 1.0, 0.0));
-	glm::rotate(mat, glm::radians(rotation.z), glm::vec3(0.0, 0.0, 1.0));
+	mat = glm::rotate(mat, glm::radians(rotation.x), glm::vec3(1.0, 0.0, 0.0));
+	mat = glm::rotate(mat, glm::radians(rotation.y), glm::vec3(0.0, 1.0, 0.0));
+	mat = glm::rotate(mat, glm::radians(rotation.z), glm::vec3(0.0, 0.0, 1.0));
 	rotationMatrix = mat;
+	updateWorldMatrix();
 }
 
 glm::vec3 Object::getRotation() {

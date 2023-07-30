@@ -5,6 +5,7 @@
 
 #include <extern/glad/glad.h>
 #include <extern/GLFW/glfw3.h>
+#include <extern/glm/gtc/type_ptr.hpp>
 
 using namespace GameEngine;
 
@@ -82,4 +83,23 @@ Shader::~Shader() noexcept {
 
 void Shader::bind() {
 	glUseProgram(glId);
+}
+
+void Shader::setUniform(std::string location, int x) {
+	glUniform1i(glGetUniformLocation(glId, location.c_str()), x);
+}
+void Shader::setUniform(std::string location, float x) {
+	glUniform1f(glGetUniformLocation(glId, location.c_str()), x);
+}
+void Shader::setUniform(std::string location, glm::vec2 x) {
+	glUniform2fv(glGetUniformLocation(glId, location.c_str()), 1, glm::value_ptr(x));
+}
+void Shader::setUniform(std::string location, glm::vec3 x) {
+	glUniform3fv(glGetUniformLocation(glId, location.c_str()), 1, glm::value_ptr(x));
+}
+void Shader::setUniform(std::string location, glm::mat3 x) {
+	glUniformMatrix3fv(glGetUniformLocation(glId, location.c_str()), 1, GL_FALSE, glm::value_ptr(x));
+}
+void Shader::setUniform(std::string location, glm::mat4 x) {
+	glUniformMatrix4fv(glGetUniformLocation(glId, location.c_str()), 1, GL_FALSE, glm::value_ptr(x));
 }
