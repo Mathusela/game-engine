@@ -45,7 +45,7 @@ void GameEngineApplication::initScene(const json& data) {
 	for (int i=0; i<renderLayersArray.size(); i++) renderLayers.push_back(nullptr);
 	for (auto renderLayerJson : renderLayersArray) {
 		std::cout << renderLayerJson << "\n";
-		renderLayers[renderLayerJson.at("id").get<int>()] = new RenderLayer(std::vector<Object*> {});
+		renderLayers[renderLayerJson.at("id").get<int>()] = new RenderLayer(shaders[renderLayerJson.at("shaderId").get<int>()]);
 	}
 
 	for (auto objectJson : data.at("Objects")) {

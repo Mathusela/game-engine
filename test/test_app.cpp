@@ -43,8 +43,6 @@ int main() {
 	app.initScene(sceneJson);
 	app.run();
 
-	std::cout << "Do more stuff\n";
-
 	return 0;
 }
 

@@ -2,11 +2,7 @@
 
 using namespace GameEngine;
 
-RenderLayer::RenderLayer(): objects(std::vector<Object*> {}) {
-
-}
-
-RenderLayer::RenderLayer(const std::vector<Object*>& objects): objects(objects) {
+RenderLayer::RenderLayer(Shader* shader, const std::vector<Object*>& objects): shader(shader), objects(objects) {
 
 }
 
