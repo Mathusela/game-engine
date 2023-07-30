@@ -2,8 +2,8 @@
 	"Shaders": [
 		{
 			"id": 0,
-			"fragmentPath": "",
-			"vertexPath": ""
+			"vertexPath": "../../test/shaders/vert.vert",
+			"fragmentPath": "../../test/shaders/frag.frag"
 		}
 	],
 
@@ -12,8 +12,7 @@
 			"id": 0,
 			"shaderId": 0,
 			"cameraId": 0,
-			"outputType": "2D",
-			"layerOrder": 0
+			"outputType": "2D"
 		}
 	],
 
