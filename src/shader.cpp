@@ -25,15 +25,27 @@ std::string loadShaderSource(std::string inputPath) {
     input.close();
     input.clear();
 
-
     return inputText;
+}
+
+void getShaderCompilationErrors(unsigned int shader, std::string type) {
+	int success;
+    char infoLog[512];
+	glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
+    if (!success)
+    {
+        glGetShaderInfoLog(shader, 512, NULL, infoLog);
+        throw std::runtime_error(type + " shader compilation failed\n" + std::string(infoLog));
+    };
 }
 
 Shader::Shader(std::string vertexPath, std::string fragmentPath) : vertexPath(vertexPath), fragmentPath(fragmentPath) {
 	gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 	
-	auto vertexSource = loadShaderSource(vertexPath).c_str();
-	auto fragmentSource = loadShaderSource(fragmentPath).c_str();
+	auto _vertexSource = loadShaderSource(vertexPath);
+	auto _fragmentSource = loadShaderSource(fragmentPath);
+	auto vertexSource = _vertexSource.c_str();
+	auto fragmentSource = _fragmentSource.c_str();
 	
 	auto vertexShader = glCreateShader(GL_VERTEX_SHADER);
 	auto fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
@@ -43,6 +55,14 @@ Shader::Shader(std::string vertexPath, std::string fragmentPath) : vertexPath(ve
 
 	glCompileShader(vertexShader);
 	glCompileShader(fragmentShader);
+
+	try {
+		getShaderCompilationErrors(vertexShader, "Vertex");
+		getShaderCompilationErrors(fragmentShader, "Fragment");
+	} catch (std::exception e) {
+		std::cout << e.what() << "\n";
+		throw e;
+	}
 
 	glId = glCreateProgram();
 	glAttachShader(glId, vertexShader);

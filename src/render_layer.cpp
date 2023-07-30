@@ -7,7 +7,8 @@ RenderLayer::RenderLayer(Shader* shader, const std::vector<Object*>& objects): s
 }
 
 void RenderLayer::draw() {
-	for (auto object : objects) object->draw();
+	shader->bind();
+	for (auto object : objects) object->draw(shader);
 }
 
 void RenderLayer::attachObject(Object* object) {
