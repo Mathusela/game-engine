@@ -17,8 +17,6 @@ namespace GameEngine {
 class GameEngineApplication {
 private:
 	GLFWwindow* window;
-	// TODO: Default object_factory
-	Object*(*object_factory)(const json& data);
 	std::vector<Shader*> shaders;
 	std::vector<Object*> objects;
 	std::vector<RenderLayer*> renderLayers;
@@ -26,11 +24,50 @@ private:
 
 	std::vector<std::thread*> executionThreads {};
 
+	template <class CustomClass>
+	Object* objectFactory(const json& data) {
+		const std::string id = data.at("id").get<std::string>();
+		
+		if (CustomClass::id == id) return new CustomClass(data);
+		return nullptr;
+	}
+
+	template <class CustomClass, class CustomClass2, class... CustomClasses>
+	Object* objectFactory(const json& data) {
+		const std::string id = data.at("id").get<std::string>();
+		
+		if (CustomClass::id == id) return new CustomClass(data);
+		return objectFactory<CustomClass2, CustomClasses...>(data);
+	}
+
 public:
-	GameEngineApplication(int width, int height, std::string title, Object*(*object_factory)(const json& data));
+	GameEngineApplication(int width, int height, std::string title);
 	~GameEngineApplication() noexcept;
 
-	void initScene(const json& data);
+	template <class... CustomClasses>
+	void initScene(const json& data) {
+		auto shadersArray = data.at("Shaders");
+		for (int i=0; i<shadersArray.size(); i++) shaders.push_back(nullptr);
+		for (auto shaderJson : shadersArray) {
+			std::cout << shaderJson << "\n";
+			shaders[shaderJson.at("id").get<int>()] = new Shader(shaderJson.at("vertexPath").get<std::string>(), shaderJson.at("fragmentPath").get<std::string>());
+		}
+		
+		auto renderLayersArray = data.at("RenderLayers");
+		for (int i=0; i<renderLayersArray.size(); i++) renderLayers.push_back(nullptr);
+		for (auto renderLayerJson : renderLayersArray) {
+			std::cout << renderLayerJson << "\n";
+			renderLayers[renderLayerJson.at("id").get<int>()] = new RenderLayer(shaders[renderLayerJson.at("shaderId").get<int>()]);
+		}
+
+		for (auto objectJson : data.at("Objects")) {
+			std::cout << objectJson << "\n";
+			Object* object;
+			objects.push_back(object = objectFactory<CustomClasses...>(objectJson));
+			renderLayers[objectJson.at("renderLayerId").get<int>()]->attachObject(object);
+		}
+	}
+
 	void run();
 	void join();
 };

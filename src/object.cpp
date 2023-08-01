@@ -1,5 +1,7 @@
 #include "object.hpp"
 
+#include "json.hpp"
+
 #include <extern/glm/gtc/matrix_transform.hpp>
 
 using namespace GameEngine;

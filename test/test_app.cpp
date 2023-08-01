@@ -7,12 +7,19 @@
 
 #include <extern/glm/gtx/string_cast.hpp>
 
+glm::vec3 arrToVec3(const std::array<float, 3>& arr) {
+	return glm::vec3(arr[0], arr[1], arr[2]);
+}
+
 // USER DEFINED CLASS
 class UserObject : public GameEngine::Object {
 public:
 	static const std::string id;
 
-	UserObject(glm::vec3 position, glm::vec3 rotation) {
+	UserObject(const GameEngine::json& data) {
+		auto position = arrToVec3(data.at("position").get<std::array<float, 3>>());
+		auto rotation = arrToVec3(data.at("rotation").get<std::array<float, 3>>());
+
 		setPosition(position);
 		setRotation(rotation);
 
@@ -56,33 +63,17 @@ public:
 };
 const std::string UserObject::id = "UserClass";
 
-// USER DEFINED FACTORY FUNCTION
-GameEngine::Object* factory(const GameEngine::json& data) {
-	const std::string id = data.at("id").get<std::string>();
-	auto positionArray = data.at("position").get<std::array<float, 3>>();
-	auto position = glm::vec3(positionArray[0], positionArray[1], positionArray[2]);
-	auto rotationArray = data.at("rotation").get<std::array<float, 3>>();
-	auto rotation = glm::vec3(rotationArray[0], rotationArray[1], rotationArray[2]);
-
-	if (id == UserObject::id)
-		return new UserObject {position, rotation};
-
-	std::cout << "Invalid Object\n";
-	return nullptr;
-}
-
 // MAIN ENTRY POINT
 int main() {
-	GameEngine::GameEngineApplication app(500, 500, "Game Engine", factory);
+	GameEngine::GameEngineApplication app(500, 500, "Game Engine");
 
 	GameEngine::json sceneJson = GameEngine::loadScene("../../test/leveldat.json");
-	app.initScene(sceneJson);
+	app.initScene<UserObject>(sceneJson);
 	app.run();
 
 	return 0;
 }
 
-// TODO: Add delta time
 // TODO: Add Camera
 // TODO: Add Textures
 // TODO: Add Framebuffers to RenderLayers and pass output Textures between RenderLayers

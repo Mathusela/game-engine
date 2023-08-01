@@ -9,7 +9,7 @@
 
 using namespace GameEngine;
 
-GameEngineApplication::GameEngineApplication(int width, int height, std::string title, Object*(*object_factory)(const json& data)): object_factory(object_factory) {
+GameEngineApplication::GameEngineApplication(int width, int height, std::string title) {
 	glfwInit();
 
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -34,28 +34,7 @@ GameEngineApplication::~GameEngineApplication() noexcept {
 	std::cout << "APPLICATION DESTROYED\n";
 }
 
-void GameEngineApplication::initScene(const json& data) {
-	auto shadersArray = data.at("Shaders");
-	for (int i=0; i<shadersArray.size(); i++) shaders.push_back(nullptr);
-	for (auto shaderJson : shadersArray) {
-		std::cout << shaderJson << "\n";
-		shaders[shaderJson.at("id").get<int>()] = new Shader(shaderJson.at("vertexPath").get<std::string>(), shaderJson.at("fragmentPath").get<std::string>());
-	}
-	
-	auto renderLayersArray = data.at("RenderLayers");
-	for (int i=0; i<renderLayersArray.size(); i++) renderLayers.push_back(nullptr);
-	for (auto renderLayerJson : renderLayersArray) {
-		std::cout << renderLayerJson << "\n";
-		renderLayers[renderLayerJson.at("id").get<int>()] = new RenderLayer(shaders[renderLayerJson.at("shaderId").get<int>()]);
-	}
-
-	for (auto objectJson : data.at("Objects")) {
-		std::cout << objectJson << "\n";
-		Object* object;
-		objects.push_back(object = object_factory(objectJson));
-		renderLayers[objectJson.at("renderLayerId").get<int>()]->attachObject(object);
-	}
-} 
+// void GameEngineApplication::initScene(const json& data) 
 
 void renderStep(const std::vector<RenderLayer*>& renderLayers) {
 	glClear(GL_COLOR_BUFFER_BIT);

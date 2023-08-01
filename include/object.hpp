@@ -2,6 +2,7 @@
 #define OBJECT_HPP
 
 #include "shader.hpp"
+#include "json.hpp"
 
 #include <string>
 #include <memory>
