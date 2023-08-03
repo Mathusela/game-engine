@@ -3,6 +3,7 @@
 
 #include "shader.hpp"
 #include "json.hpp"
+#include "camera.hpp"
 
 #include <string>
 #include <memory>
@@ -29,7 +30,7 @@ protected:
 public:
 	static const std::string id;
 	virtual ~Object() noexcept {}
-	virtual void draw(Shader* shader) = 0;
+	virtual void draw(Shader* shader, Camera* camera) = 0;
 	virtual void tick(float deltaTime) = 0;
 	
 	void setPosition(const glm::vec3& pos);

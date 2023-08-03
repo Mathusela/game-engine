@@ -2,13 +2,13 @@
 
 using namespace GameEngine;
 
-RenderLayer::RenderLayer(Shader* shader, const std::vector<Object*>& objects): shader(shader), objects(objects) {
+RenderLayer::RenderLayer(Shader* shader, Camera* camera, const std::vector<Object*>& objects): shader(shader), camera(camera), objects(objects) {
 
 }
 
 void RenderLayer::draw() {
 	shader->bind();
-	for (auto object : objects) object->draw(shader);
+	for (auto object : objects) object->draw(shader, camera);
 }
 
 void RenderLayer::attachObject(Object* object) {

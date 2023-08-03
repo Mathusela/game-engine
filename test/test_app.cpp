@@ -50,8 +50,10 @@ public:
 		std::cout << "USER OBJECT DESTROYED\n";
 	}
 
-	void draw(GameEngine::Shader* shader) {
+	void draw(GameEngine::Shader* shader, GameEngine::Camera* camera) {
 		shader->setUniform("world", getWorldMatrix());
+		shader->setUniform("view", camera->getViewMatrix());
+		shader->setUniform("projection", camera->getProjectionMatrix());
 
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 	}
@@ -74,9 +76,11 @@ int main() {
 	return 0;
 }
 
-// TODO: Add Camera
+// TODO: offload camera perspective matrix parameters to JSON
+// TODO: Add Camera tick() [function ptr? Bind to Object in JSON?]
+
 // TODO: Add Textures
 // TODO: Add Framebuffers to RenderLayers and pass output Textures between RenderLayers
 // TODO: Add geometry import for objects
-// TODO: Add serialization of levels (ability to save a level to JSON and read it back into the Engine)
+// TODO: Add serialization of levels (ability to save a level to JSON and read it back into the Engine) may need to store IDs in shaders e.t.c. to retrieve for serialization
 // TODO: Put physics on its own thread

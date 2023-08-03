@@ -3,6 +3,7 @@
 
 #include "object.hpp"
 #include "shader.hpp"
+#include "camera.hpp"
 
 #include <vector>
 
@@ -12,10 +13,10 @@ class RenderLayer {
 private:
 	std::vector<Object*> objects;
 	Shader* shader;
-	// CAMERA
+	Camera* camera;
 
 public:
-	RenderLayer(Shader* shader, const std::vector<Object*>& objects = std::vector<Object*> {});
+	RenderLayer(Shader* shader, Camera* camera, const std::vector<Object*>& objects = std::vector<Object*> {});
 	// Should return and take texture
 	void draw();
 	void attachObject(Object* object);
